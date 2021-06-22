@@ -1,0 +1,79 @@
+server:
+  servlet:
+    context-path: "/v1"
+  port: 4343
+
+# Authentication
+auth:
+  max_attempts: 3
+  admin:
+    api_login: false # Can system administrator account access the API?.
+
+jwt:
+  issuer: CGA
+  secret: # Must be at least 256bits (32 characters)
+  expiration: 30 # In minutes
+
+# Logging level
+logging:
+  level:
+    org:
+      cga: INFO
+    root: WARN
+
+# Spring Doc + API documentation configuration (/api-doc.yaml or /api-doc)
+springdoc:
+  default-produces-media-type: application/json
+  api-docs:
+    path: /api-doc
+    enabled: false
+  swagger-ui:
+    doc-expansion: none
+    enabled: false
+
+# Email configuration
+mail:
+  smtp:
+    host:
+    port:
+    username:
+    password:
+    debug: false
+  from: no-reply@cgatechologies.org.uk
+
+spring:
+  mail:
+    host: ${mail.smtp.host}
+    port: ${mail.smtp.port}
+    username: ${mail.smtp.username}
+    password: ${mail.smtp.password}
+    properties:
+      mail:
+        debug: ${mail.smtp.debug}
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  application:
+    name: "SCTP 2 API"
+    version: @project.version@
+    build_timestamp: @maven.build.timestamp@
+  datasource:
+    username:
+    password:
+    url: jdbc:mysql://
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.mysql.MySQL8SpatialDialect
+    open-in-view: false
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    locations: classpath:db/migration,classpath:db/callback
+    out-of-order: true
+    baselineOnMigrate: true
+  profiles:
+    active: prod

@@ -1,0 +1,29 @@
+server:
+  port: 4343
+
+
+jwt:
+  issuer: CGA
+  secret: # Must be at least 256bits (32 characters)
+
+# Logging level
+logging:
+  level:
+    org:
+      cga: INFO
+    root: INFO
+
+spring:
+  datasource:
+    username: sctp
+    password: toor
+    url: jdbc:mysql://localhost/sctp
+
+# Email configuration
+mail:
+  smtp:
+    host: localhostt
+    port: 25
+    username:
+    password:
+  from: no-reply@cgatechologies.org.uk
